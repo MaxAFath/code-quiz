@@ -40,26 +40,49 @@ var questions = [{
     correctAnswer: 0
 }];
 
-var quizOver = flase;
-var currentQuestion = 0;
-var penalty = 15;
-var score = 0;
+var player ={
+    score:0,
+    name:""
+};
 
-function test(){
-    var timeleft = 75;
-    
-    var timeInterval = setInterval(function(){
+const question = document.querySelector('#question');
+const choices = array.from(document.querySelector('.choice-text'));
+const scoreText = document.querySelector('#score');
 
-        if(timeleft >= 1){
-            timeEl.textContent = timeleft;
-            timeleft--;
-        }
-        else{
-            timeEl.textContent = ' ';
-            clearInterval(timeInterval);
-        }
-    }, 1000);
-}
+let currentQuestion ={};
+let acceptingAnsers = true;
+let score = 0;
+let questionCoutner = 0;
+let availableQuestions =[];
 
+const SCORE_POINTS =100;
 
-addEventListener("click", test());
+startQuiz = () =>{
+    questionCoutner = 0;
+    score = 0;
+    availableQuestions = [...question];
+    getNewQuestions();
+};
+
+getNewQuestions = () => {
+    if(availableQuestions.length === 0){
+        localStorage.setItem('mostRecentScore');
+        return window.location.assign('/end.html');
+    }
+
+    questionCoutner++;
+    progressTest.innerText = 'Question ${questionCounter} of ${MAX_QUESTIONS}';
+
+    const questionIndex = Math.floor(Math.random() = availableQuestions.length());
+    currentQuestion = availableQuestions[questionIndex];
+    question.innerHTML = currentQuestion.question;
+
+    choices.forEach(choices =>{
+        const number = choices.dataset['number'];
+        choices.innerHTML = currentQuestion['choice' +number];
+    });
+    availableQuestions.splice(questionIndex, 1);
+
+    acceptingAnsers = true;
+
+};
