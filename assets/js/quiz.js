@@ -18,71 +18,90 @@ var questions = [{
     question: "5. What would following code return? console.log(typeof typeof 1);",
     choices: ["string", "number", "Syntax error", "undefined"],
     correctAnswer: 0
-},{
-	question: "6. Which software company developed JavaScript?",
+}, {
+    question: "6. Which software company developed JavaScript?",
     choices: ["Mozilla", "Netscape", "Sun Microsystems", "Oracle"],
     correctAnswer: 1
-},{
-	question: "7. What would be the result of 3+2+'7'?",
+}, {
+    question: "7. What would be the result of 3+2+'7'?",
     choices: ["327", "12", "14", "57"],
     correctAnswer: 3
-},{
-	question: "8. Look at the following selector: $('div'). What does it select?",
+}, {
+    question: "8. Look at the following selector: $('div'). What does it select?",
     choices: ["The first div element", "The last div element", "All div elements", "Current div element"],
     correctAnswer: 2
-},{
-	question: "9. How can a value be appended to an array?",
+}, {
+    question: "9. How can a value be appended to an array?",
     choices: ["arr(length).value;", "arr[arr.length]=value;", "arr[]=add(value);", "None of these"],
     correctAnswer: 1
-},{
-	question: "10. What will the code below output to the console? console.log(1 +  +'2' + '2');",
+}, {
+    question: "10. What will the code below output to the console? console.log(1 +  +'2' + '2');",
     choices: ["'32'", "'122'", "'13'", "'14'"],
     correctAnswer: 0
 }];
+var box = document.getElementById("containerI");
 
-var player ={
-    score:0,
-    name:""
+var player = {
+    score: 0,
+    name: ""
 };
 
-const question = document.querySelector('#question');
-const choices = array.from(document.querySelector('.choice-text'));
-const scoreText = document.querySelector('#score');
-
-let currentQuestion ={};
+let currentQuestion = {};
 let acceptingAnsers = true;
 let score = 0;
 let questionCoutner = 0;
-let availableQuestions =[];
+let availableQuestions = [];
 
-const SCORE_POINTS =100;
+questionCoutner = 0;
+score = 0;
+availableQuestions = [...question];
 
-startQuiz = () =>{
-    questionCoutner = 0;
-    score = 0;
-    availableQuestions = [...question];
-    getNewQuestions();
+startQuiz = () => {
+    box.remove();
+    startTimer();
+    getNewQuestion();
 };
 
-getNewQuestions = () => {
-    if(availableQuestions.length === 0){
+getNewQuestion = () => {
+    if ((availableQuestions.length - 1) === questionCoutner) {
         localStorage.setItem('mostRecentScore');
         return window.location.assign('/end.html');
     }
+    var ulQ = document.getElementById("choice-containter");
 
     questionCoutner++;
-    progressTest.innerText = 'Question ${questionCounter} of ${MAX_QUESTIONS}';
 
     const questionIndex = Math.floor(Math.random() = availableQuestions.length());
     currentQuestion = availableQuestions[questionIndex];
     question.innerHTML = currentQuestion.question;
+    for (var i = 0; i < currentQuestion.choices.length; i++) {
+        var btnQuestions = document.createElement('button');
+        btnQuestions.type = 'button';
+        btnQuestions.innerHTML = currentQuestion.choices[i];
+        btnQuestions.className = "btn";
+        btnQuestions.id = i;
+        btnQuestions.onclick = function () {
+            if (currentQuestion.correctAnswer == btnQuestions.id) {
+                score +=10;
+                getNewQuestion();
+            }
+            else {
+                score -=5;
+                getNewQuestion();
+            }
 
-    choices.forEach(choices =>{
-        const number = choices.dataset['number'];
-        choices.innerHTML = currentQuestion['choice' +number];
-    });
-    availableQuestions.splice(questionIndex, 1);
+        }
 
+
+        ulQ.append(btnQuestions);
+    }
+    availableQuestions -=1;
     acceptingAnsers = true;
 
 };
+
+function startTimer()   {
+    
+}
+
+document.getElementById('start').addEventListener("click", startQuiz());

@@ -1,48 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>test</title>
     <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Javascript quiz</title>
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" id="box">
         <div id="quiz" class="juustify-center flex-column">
             <div id="hud">
                 <div class="hud-item">
-                    
-
+                    <a href="/highScore.html" id="highscore-btn" class="btn">High Scores</a>
                 </div>
                 <div class="hud-item">
-                    <p class="hud-prefix">
-                        Score
-                    </p>
-                    <h1 class="hud-main-text" id="score">0</h1>
+                    <h1 class="hud-main-text" id="time"></h1>
                 </div>
 
             </div>
-            <h1 id="question">Filler</h1>
-            <div class="choice-containter">
-                <p class="choice-prefix"></p>
-                <p class="choice-tex" data-number="1">choice</p>
-            </div>
-            <div class="choice-containter">
-                <p class="choice-prefix"></p>
-                <p class="choice-tex" data-number="2">choice2</p>
-            </div>
-            <div class="choice-containter">
-                <p class="choice-prefix"></p>
-                <p class="choice-tex" data-number="3">choice3</p>
-            </div>
-            <div class="choice-containter">
-                <p class="choice-prefix"></p>
-                <p class="choice-tex" data-number="4">choice4</p>
+            <div id="containerI">
+                <button class="btn" id="start">Start Quiz</button>
             </div>
         </div>
     </div>
+    
     <script src="./assets/js/quiz.js"></script>
 </body>
 
