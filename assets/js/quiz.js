@@ -39,69 +39,61 @@ var questions = [{
     choices: ["'32'", "'122'", "'13'", "'14'"],
     correctAnswer: 0
 }];
-var box = document.getElementById("containerI");
 
-var player = {
-    score: 0,
-    name: ""
-};
+var quizSpace = document.getElementById("quiz");
+var score = 0;
+var count = 0;
 
-let currentQuestion = {};
-let acceptingAnsers = true;
-let score = 0;
-let questionCoutner = 0;
-let availableQuestions = [];
+var hudScore = document.getElementById("highscore");
+var prompQ = document.getElementById("question");
+var choices = document.getElementById("choices");
+var anwsers = document.getElementById("anwsers");
 
-questionCoutner = 0;
-score = 0;
-availableQuestions = [...question];
-
-startQuiz = () => {
-    box.remove();
-    startTimer();
-    getNewQuestion();
-};
-
-getNewQuestion = () => {
-    if ((availableQuestions.length - 1) === questionCoutner) {
-        localStorage.setItem('mostRecentScore');
-        return window.location.assign('/end.html');
-    }
-    var ulQ = document.getElementById("choice-containter");
-
-    questionCoutner++;
-
-    const questionIndex = Math.floor(Math.random() = availableQuestions.length());
-    currentQuestion = availableQuestions[questionIndex];
-    question.innerHTML = currentQuestion.question;
-    for (var i = 0; i < currentQuestion.choices.length; i++) {
-        var btnQuestions = document.createElement('button');
-        btnQuestions.type = 'button';
-        btnQuestions.innerHTML = currentQuestion.choices[i];
-        btnQuestions.className = "btn";
-        btnQuestions.id = i;
-        btnQuestions.onclick = function () {
-            if (currentQuestion.correctAnswer == btnQuestions.id) {
-                score +=10;
-                getNewQuestion();
-            }
-            else {
-                score -=5;
-                getNewQuestion();
-            }
-
+/*function startTimer(){
+    var timer = setInterval(function(){
+        var timeLeft = 75000;
+        document.getElementById("time").innerHTML=timer;
+        timer--;
+        if(timer <= 0) {
+            clearInterval();
+            alert('Time is up');
+            localStorage.setItem(score);
+            let user= prompt('Enter your name');
+            localStorage.setItem(user);
+            window.location('highScore.html');
         }
+    }, 1000);
+}*/
 
-
-        ulQ.append(btnQuestions);
+function quiz(){
+    //startTimer();
+    if (count <=questions.length){
+        getQuestion()
     }
-    availableQuestions -=1;
-    acceptingAnsers = true;
-
-};
-
-function startTimer()   {
-    
 }
 
-document.getElementById('start').addEventListener("click", startQuiz());
+function startQuiz(){
+    anwsers.removeChild(document.getElementById("start"));
+    
+    quiz();
+}
+document.querySelector('button').onclick=startQuiz();
+
+function getQuestion(){
+    prompQ.innerText =questions[count].question, prompQ.innerHTML;
+    var correctAnswer = questions[count].correctAnswer;
+    for(let i = 0; i < questions[count].choices;i++){
+        let btnEl = questions[count].choices[i];
+        btnEl.valueOf(i);
+        choices.appendChild(btnEl);
+    }//despreatly want to use better methods to do this....
+    onclick = function(){
+        if(this.document.valueOf() == correctAnswer){
+            score+=10;
+        }
+        else{
+            score-=5;
+        }
+        getQuestion();
+    }
+}
