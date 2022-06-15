@@ -46,10 +46,10 @@ var score = 0;
 var count = 0;
 
 var hudScore = document.getElementById("highscore");
-var prompQ = document.getElementById("question");
+var prompQ = document.getElementById("prompt");
 var choices = document.getElementById("choices");
 var anwsers = document.getElementById("anwsers");
-
+var hEl = document.createElement('h2');
 /*function startTimer(){
     var timer = setInterval(function(){
         var timeLeft = 75000;
@@ -67,10 +67,12 @@ var anwsers = document.getElementById("anwsers");
 }*/
 
 function quiz() {
-    //startTimer();
-    if (count <= questions.length) {
+    hEl.innerHTML=questions[count].question;
+    prompQ.appendChild(hEl);
+    if (count <= questions.length-1) {
         getQuestion();
     }
+    document.getElementById("hscore").innerHTML=score;
 }
 
 
@@ -82,12 +84,8 @@ start.onclick = function startQuiz() {
 
 function getQuestion() {
 
-    h2El = document.createElement("h2");
-    h2El.innerHTML = questions[count].question;
-    prompQ.appendChild = h2El;
-
     var correct = questions[count].correctAnswer;
-    for (let i = 0; i < questions[count].choices.length - 1; i++) {
+    for (let i = 0; i < questions[count].choices.length ; i++) {
         liEl = document.createElement("li");
         btnEl = document.createElement("button");
         btnEl.classList.add('btn')
@@ -95,7 +93,7 @@ function getQuestion() {
         btnEl.value = i;
         btnEl.innerHTML = questions[count].choices[i];
         btnEl.onclick = function () {
-            if (btnEl.value === correct) {
+            if (btnEl.value == correct) {
                 score += 10;
             }
             else {
@@ -110,8 +108,9 @@ function getQuestion() {
 }
 
 function removeQuestions() {
-    for (let i = 0; i < questions[count].choices.length - 1; i++) {
+    hEl.innerHTML = questions[count].question;
+    for (let i = 0; i < questions[count].choices.length ; i++) {
         choices.removeChild(choices.firstElementChild);
     }
-    getQuestion();
+    quiz();
 }
