@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nova+Square&display=swap');
 :root{
-    background-color: rgb(29, 26, 26);
+    background-color: rgb(14, 55, 7);
 }
 
 * {
@@ -62,7 +62,7 @@ h2{
     text-align: center;
     margin-bottom: 1rem;
     text-decoration: none;
-    color: rgb(28, 26, 26);
+    color: rgb(161, 159, 36);
     background: linear-gradient(90deg, rgb(18,92,255) 0%, rgb(0,102,255) 100%);
     border-radius: 4px;
 }

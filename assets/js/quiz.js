@@ -41,6 +41,7 @@ var questions = [{
 }];
 
 var quizSpace = document.getElementById("quiz");
+let start = document.getElementById('start');
 var score = 0;
 var count = 0;
 
@@ -65,35 +66,52 @@ var anwsers = document.getElementById("anwsers");
     }, 1000);
 }*/
 
-function quiz(){
+function quiz() {
     //startTimer();
-    if (count <=questions.length){
-        getQuestion()
-    }
-}
-
-function startQuiz(){
-    anwsers.removeChild(document.getElementById("start"));
-    
-    quiz();
-}
-document.querySelector('button').onclick=startQuiz();
-
-function getQuestion(){
-    prompQ.innerText =questions[count].question, prompQ.innerHTML;
-    var correctAnswer = questions[count].correctAnswer;
-    for(let i = 0; i < questions[count].choices;i++){
-        let btnEl = questions[count].choices[i];
-        btnEl.valueOf(i);
-        choices.appendChild(btnEl);
-    }//despreatly want to use better methods to do this....
-    onclick = function(){
-        if(this.document.valueOf() == correctAnswer){
-            score+=10;
-        }
-        else{
-            score-=5;
-        }
+    if (count <= questions.length) {
         getQuestion();
     }
+}
+
+
+start.onclick = function startQuiz() {
+    anwsers.removeChild(document.getElementById("start"));
+
+    quiz();
+}
+
+function getQuestion() {
+
+    h2El = document.createElement("h2");
+    h2El.innerHTML = questions[count].question;
+    prompQ.appendChild = h2El;
+
+    var correct = questions[count].correctAnswer;
+    for (let i = 0; i < questions[count].choices.length - 1; i++) {
+        liEl = document.createElement("li");
+        btnEl = document.createElement("button");
+        btnEl.classList.add('btn')
+        btnEl.type = "submit";
+        btnEl.value = i;
+        btnEl.innerHTML = questions[count].choices[i];
+        btnEl.onclick = function () {
+            if (btnEl.value === correct) {
+                score += 10;
+            }
+            else {
+                score -= 5;
+            }
+            removeQuestions();
+            count++
+        }
+        liEl.append(btnEl);
+        choices.appendChild(liEl);
+    }//despreatly want to use better methods to do this...
+}
+
+function removeQuestions() {
+    for (let i = 0; i < questions[count].choices.length - 1; i++) {
+        choices.removeChild(choices.firstElementChild);
+    }
+    getQuestion();
 }
